@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by juanfranfv on 8/29/17.
  */
-final public class EFIMiner implements Serializable {
+final public class PEFIMiner implements Serializable {
     List<Output> results;
     int candidateCount;
     long minUtil;
@@ -34,8 +34,8 @@ final public class EFIMiner implements Serializable {
 
     List<Integer> elementos;
 
-    public EFIMiner(long minUtil, List<Transaction> transactions, boolean activateTransactionMerging,
-                    int[] newNamesToOldNames, int newItemCount) {
+    public PEFIMiner(long minUtil, List<Transaction> transactions, boolean activateTransactionMerging,
+                     int[] newNamesToOldNames, int newItemCount) {
         this.candidateCount = 0;
         this.huiCount = 0;
         this.transactionReadingCount = 0;

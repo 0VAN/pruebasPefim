@@ -45,7 +45,7 @@ import java.util.*;
  *
  * @author Souleymane Zida, Philippe Fournier-Viger using some code by Alan Souza
  */
-public class AlgoEFIM0 implements Serializable {
+public class AlgoPEFIM implements Serializable {
 
     /** 0 - Normal partitioning. 1 - Random partitioning. 2 - 1 to N, N to 1 partitioning */
     private int partitioning = 2;
@@ -145,7 +145,7 @@ public class AlgoEFIM0 implements Serializable {
     /**
      * Constructor
      */
-    public AlgoEFIM0() {
+    public AlgoPEFIM() {
 
     }
 
@@ -598,15 +598,15 @@ public class AlgoEFIM0 implements Serializable {
             }
             pairRDD.persist(StorageLevel.MEMORY_ONLY());
             //PairRDD
-            JavaRDD<EFIMiner> resultsRDD = pairRDD.map(new Function<Tuple2<Integer, Integer>, EFIMiner>() {
+            JavaRDD<PEFIMiner> resultsRDD = pairRDD.map(new Function<Tuple2<Integer, Integer>, PEFIMiner>() {
                 @Override
-                public EFIMiner call(Tuple2<Integer, Integer> tupla) throws Exception {
+                public PEFIMiner call(Tuple2<Integer, Integer> tupla) throws Exception {
                     Integer e = tupla._2;
                     List<Integer> itemsToKeep = bitemsToKeep.value();
                     List<Integer> itemsToExplore = bitemsToExplore.value();
                     List<Transaction> transactionsOfP = btransactionsOfP.value();
 
-                    EFIMiner efiminer = new EFIMiner(bminUtil.value(), transactionsOfP,
+                    PEFIMiner efiminer = new PEFIMiner(bminUtil.value(), transactionsOfP,
                             bactivateTransactionMerging.value(), newNamesToOldNames, bnewItemCount.value());
                     List<Output> results = efiminer.Mine(e, itemsToKeep, itemsToExplore);
                     return efiminer;
@@ -614,7 +614,7 @@ public class AlgoEFIM0 implements Serializable {
             });
             results = new ArrayList<Output>();
             resultsRDD.persist(StorageLevel.MEMORY_ONLY());
-            for(EFIMiner e: resultsRDD.collect()){
+            for(PEFIMiner e: resultsRDD.collect()){
                 results.addAll(e.results);
                 candidateCount += e.candidateCount;
                 mergeCount += e.mergeCount;
@@ -627,14 +627,14 @@ public class AlgoEFIM0 implements Serializable {
             itemsToExploreRDD.persist(StorageLevel.MEMORY_ONLY());
 //            itemsToExploreRDD.foreach(new Funcion2());
 //            JavaRDD<Integer> itemTransactionsRDD = itemsToExploreRDD.map(new Funcion());
-            JavaRDD<EFIMiner> resultsRDD = itemsToExploreRDD.map(new Function<Integer, EFIMiner>() {
+            JavaRDD<PEFIMiner> resultsRDD = itemsToExploreRDD.map(new Function<Integer, PEFIMiner>() {
                 @Override
-                public EFIMiner call(Integer e) throws Exception {
+                public PEFIMiner call(Integer e) throws Exception {
                     List<Integer> itemsToKeep = bitemsToKeep.value();
                     List<Integer> itemsToExplore = bitemsToExplore.value();
                     List<Transaction> transactionsOfP = btransactionsOfP.value();
 
-                    EFIMiner efiminer = new EFIMiner(bminUtil.value(), transactionsOfP,
+                    PEFIMiner efiminer = new PEFIMiner(bminUtil.value(), transactionsOfP,
                             bactivateTransactionMerging.value(), newNamesToOldNames, bnewItemCount.value());
                     List<Output> results = efiminer.Mine(e, itemsToKeep, itemsToExplore);
                     return efiminer;
@@ -643,7 +643,7 @@ public class AlgoEFIM0 implements Serializable {
 
             results = new ArrayList<Output>();
             resultsRDD.persist(StorageLevel.MEMORY_ONLY());
-            for(EFIMiner e: resultsRDD.collect()){
+            for(PEFIMiner e: resultsRDD.collect()){
                 results.addAll(e.results);
                 candidateCount += e.candidateCount;
                 mergeCount += e.mergeCount;

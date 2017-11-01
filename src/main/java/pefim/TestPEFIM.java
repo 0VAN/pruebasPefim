@@ -33,7 +33,7 @@ public class TestPEFIM implements Serializable{
 
 
         // Run the EFIM algorithm
-        AlgoEFIM0 algo = new AlgoEFIM0();
+        AlgoPEFIM algo = new AlgoPEFIM();
         algo.runAlgorithm(tetha, input, output, true, Integer.MAX_VALUE, true);
         // Print statistics
         algo.printStats();
