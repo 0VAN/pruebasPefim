@@ -1,6 +1,6 @@
 package efim;
 
-import ca.pfv.spmf.tools.MemoryLogger;
+import pefim.MemoryLogger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -480,7 +480,7 @@ public class AlgoEFIM {
         // ========  for each frequent item  e  =============
 		for (int j = 0; j < itemsToExplore.size(); j++) {
 			if(prefixLength == 0){
-				elementos = new ArrayList<>();
+				elementos = new ArrayList<Integer>();
 			}
 			Integer e = itemsToExplore.get(j);
 			elementos.add(e);
