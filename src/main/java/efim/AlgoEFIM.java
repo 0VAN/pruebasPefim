@@ -48,6 +48,7 @@ public class AlgoEFIM {
 	
 	/** the minutil threshold */
 	long minUtil;
+	double tetha;
 	
 	/** if this variable is set to true, some debugging information will be shown */
     final boolean  DEBUG = false;
@@ -118,7 +119,7 @@ public class AlgoEFIM {
        * @return the itemsets or null if the user choose to save to file
      * @throws IOException if exception while reading/writing to file
      */
-    public Itemsets runAlgorithm(long minutil, String inputPath, String outputPath, boolean activateTransactionMerging, int maximumTransactionCount, boolean activateSubtreeUtilityPruning) throws IOException {
+    public Itemsets runAlgorithm(double tetha, String inputPath, String outputPath, boolean activateTransactionMerging, int maximumTransactionCount, boolean activateSubtreeUtilityPruning) throws IOException {
     	
     	// reset variables for statistics
     	mergeCount=0;
@@ -136,8 +137,9 @@ public class AlgoEFIM {
 		// read the input file
 		Dataset dataset = new Dataset(inputPath, maximumTransactionCount);
 
+		this.tetha = tetha;
 		// save minUtil value selected by the user
-		this.minUtil = minutil;
+		this.minUtil = (long)(tetha * dataset.totalUtility);
 		System.out.println("Min util: " + this.minUtil);
 
 		// if the user choose to save to file
@@ -980,5 +982,23 @@ At the same time project transactions to keep what appears after "e"
 		System.out.println(" Max memory:" + MemoryLogger.getInstance().getMaxMemory());
 		System.out.println(" Candidate count : "             + candidateCount);
 		System.out.println("=====================================");
+	}
+
+	/**
+	 * Print statistics about the latest execution of the EFIM algorithm.
+	 */
+	public String returnStats() {
+
+		long totalTime = endTimestamp - startTimestamp;
+		double memory = MemoryLogger.getInstance().getMaxMemory();
+		String resultado = "";
+		resultado += tetha + ",";
+		resultado += minUtil + ",";
+		resultado += patternCount + ",";
+		resultado += minUtil + ",";
+        resultado += totalTime + ",";
+        resultado += memory + ",";
+        resultado += candidateCount;
+		return resultado;
 	}
 }
