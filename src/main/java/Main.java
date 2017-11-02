@@ -29,11 +29,10 @@ public class Main {
             }
             List<DataSetScenarioConfig> beans = new CsvToBeanBuilder(new FileReader(CSVinputfile))
                     .withType(DataSetScenarioConfig.class).withIgnoreLeadingWhiteSpace(true).build().parse();
-
+            int c = 1;
             for(DataSetScenarioConfig cfg:beans){
                 ByteArrayOutputStream baos = transactionDatabaseGenerator.generateDatabase(cfg.numberOfTransactions,cfg.maxDistincItems,cfg.maxItemCountPerTransaction);
-                ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-                transactionDatasetUtilityGenerator.convert(bais,"/asd",cfg.maximumQuantity,cfg.multiplicativeFactor);
+                transactionDatasetUtilityGenerator.convert(baos,args[1]+"/db"+c+++".txt",cfg.maximumQuantity,cfg.multiplicativeFactor);
             }
 
             System.out.println(beans.get(0).numberOfTransactions);

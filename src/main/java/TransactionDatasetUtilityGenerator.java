@@ -47,6 +47,7 @@ public class TransactionDatasetUtilityGenerator {
 
 		BufferedWriter writer = new BufferedWriter(new FileWriter(output)); 
 		BufferedReader myInput = new BufferedReader(new InputStreamReader( new FileInputStream(new File(input))));
+
 		// for each line (transaction) until the end of file
 		String thisLine;
 		while ((thisLine = myInput.readLine()) != null) {
@@ -139,19 +140,18 @@ public class TransactionDatasetUtilityGenerator {
 		System.out.println("transaction avg length " + (avglength / (double) tidcount));
 	}
 
-	public void convert(ByteArrayInputStream input, String output, int maxQuantity, double externalUtilityFactor) throws NumberFormatException, IOException {
+	public void convert(ByteArrayOutputStream input, String output, int maxQuantity, double externalUtilityFactor) throws NumberFormatException, IOException {
 
 		// for stats
 		Set<Integer> items = new HashSet<Integer>();
 		long avglength =0;
 		long tidcount = 0;
-
 		Random randomGenerator = new Random(System.currentTimeMillis());
 
 		Map<Integer, Integer> externalUtilities = new HashMap<Integer, Integer>();
 
 		BufferedWriter writer = new BufferedWriter(new FileWriter(output));
-		BufferedReader myInput = new BufferedReader(new InputStreamReader(input));
+		BufferedReader myInput = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(input.toByteArray())));
 		// for each line (transaction) until the end of file
 		String thisLine;
 		while ((thisLine = myInput.readLine()) != null) {
@@ -187,7 +187,7 @@ public class TransactionDatasetUtilityGenerator {
 		}
 		myInput.close();
 
-		myInput = new BufferedReader(new InputStreamReader(input));
+		myInput = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(input.toByteArray())));
 		// for each line (transaction) until the end of file
 		while ((thisLine = myInput.readLine()) != null) {
 			// if the line is  a comment, is  empty or is a
