@@ -68,6 +68,7 @@ public class AlgoPEFIM implements Serializable {
 
     /** the minutil threshold */
     long minUtil;
+    double tetha;
 
     /** if this variable is set to true, some debugging information will be shown */
     final boolean  DEBUG = false;
@@ -189,6 +190,7 @@ public class AlgoPEFIM implements Serializable {
         // read the input file
         Dataset dataset = new Dataset(inputPath, maximumTransactionCount);
         long minUtil = (long)(tetha * dataset.totalUtility);
+        this.tetha = tetha;
         // save minUtil value selected by the user
         this.minUtil = minUtil;
 
@@ -1885,5 +1887,20 @@ public class AlgoPEFIM implements Serializable {
             JavaRDD<String> rptaRDD = sc.parallelize(respuesta);
 //            rptaRDD.saveAsTextFile(outPath);
         }
+    }
+
+    public String returnStats() {
+
+        long totalTime = endTimestamp - startTimestamp;
+        double memory = MemoryLogger.getInstance().getMaxMemory();
+        String resultado = "";
+        resultado += tetha + ",";
+        resultado += minUtil + ",";
+        resultado += patternCount + ",";
+        resultado += minUtil + ",";
+        resultado += totalTime + ",";
+        resultado += memory + ",";
+        resultado += candidateCount;
+        return resultado;
     }
 }
