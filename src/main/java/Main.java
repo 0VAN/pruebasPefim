@@ -3,7 +3,10 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import efim.AlgoEFIM;
 import pefim.AlgoPEFIM;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,17 +56,17 @@ public class Main {
 //                output.clear();
 
 
-                    efim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true);
-                    pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c+",efim,"+efim.returnStats()).split(","));
-                    output.add((c+++",pefim,"+pefim.returnStats()).split(","));
+//                    efim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true);
+//                    pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true);
+//                    output.add((c+",efim,"+efim.returnStats()).split(","));
+//                    output.add((c+++",pefim,"+pefim.returnStats()).split(","));
 //                writer.writeAll(output);
 //                output.clear();
 
-                    efim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true);
-                    pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c+",efim,"+efim.returnStats()).split(","));
-                    output.add((c+++",pefim,"+pefim.returnStats()).split(","));
+//                    efim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true);
+//                    pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true);
+//                    output.add((c+",efim,"+efim.returnStats()).split(","));
+//                    output.add((c+++",pefim,"+pefim.returnStats()).split(","));
 //                writer.writeAll(output);
 //                output.clear();
 
