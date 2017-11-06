@@ -239,6 +239,7 @@ public class TransactionDatasetUtilityGenerator {
 		}
 		writer.close();
 
+
 		System.out.println("item count " + items.size());
 		System.out.println("transaction count " + tidcount);
 		System.out.println("transaction avg length " + (avglength / (double) tidcount));

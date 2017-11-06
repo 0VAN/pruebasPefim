@@ -12,9 +12,9 @@ public class DataSetScenarioConfig {
     @CsvBindByName(column = "multiplicativeFactor")
     int multiplicativeFactor;
     @CsvBindByName(column = "theta1")
-    float theta1;
+    double theta1;
     @CsvBindByName(column = "theta2")
-    float theta2;
+    double theta2;
     @CsvBindByName(column = "theta3")
-    float theta3;
+    double theta3;
 }
