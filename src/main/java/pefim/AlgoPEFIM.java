@@ -161,9 +161,10 @@ public class AlgoPEFIM implements Serializable {
      * @return the itemsets or null if the user choose to save to file
      * @throws IOException if exception while reading/writing to file
      */
-    public void runAlgorithm(double tetha, String inputPath, String outputPath, boolean activateTransactionMerging, int maximumTransactionCount, boolean activateSubtreeUtilityPruning) throws IOException {
+    public void runAlgorithm(double tetha, String inputPath, String outputPath, boolean activateTransactionMerging, int maximumTransactionCount, boolean activateSubtreeUtilityPruning, int partitioning) throws IOException {
 
 
+        this.partitioning = partitioning;
         // reset variables for statistics
         mergeCount=0;
         transactionReadingCount=0;
@@ -894,11 +895,11 @@ public class AlgoPEFIM implements Serializable {
 //                lubaSU.add(0);
 //            }
             useUtilityBinArraysToCalculateUpperBounds(transactionsPe, j, itemsToKeep, ubaSU, ubaLU);
-            if(e == 2){
-                System.out.println("Size: " + transactionsPe.size());
-//                System.out.println(lubaSU);
-                System.out.println(Arrays.toString(ubaSU));
-            }
+//            if(e == 2){
+//                System.out.println("Size: " + transactionsPe.size());
+////                System.out.println(lubaSU);
+//                System.out.println(Arrays.toString(ubaSU));
+//            }
 //                    useUtilityBinArraysToCalculateUpperBounds(transactionsPe, j, itemsToKeep, ubaSU, ubaLU);
 //                if(DEBUG){
 //                    System.out.println();
@@ -1900,7 +1901,8 @@ public class AlgoPEFIM implements Serializable {
         resultado += minUtil + ",";
         resultado += totalTime + ",";
         resultado += memory + ",";
-        resultado += candidateCount;
+        resultado += candidateCount + ",";
+        resultado += partitioning;
         return resultado;
     }
 }

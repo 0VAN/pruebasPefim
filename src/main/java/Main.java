@@ -49,7 +49,9 @@ public class Main {
                     transactionDatasetUtilityGenerator.convert(baos,file,cfg.maximumQuantity,cfg.multiplicativeFactor);
 
                     efim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true);
-                    pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true);
+                    pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 0);
+                    pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 1);
+                    pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 2);
                     output.add((c+",efim,"+efim.returnStats()).split(","));
                     output.add((c+++",pefim,"+pefim.returnStats()).split(","));
 //                writer.writeAll(output);

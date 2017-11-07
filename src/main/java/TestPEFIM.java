@@ -1,4 +1,4 @@
-package pefim;
+import pefim.AlgoPEFIM;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,12 +14,12 @@ public class TestPEFIM implements Serializable{
         // the input and output file paths
         String input;
         String output = ".//output";
-        double tetha = 0.1;
+        double tetha = 0.005;
         if(arg.length > 0){
             input = arg[0];
             if(arg.length > 1) tetha = Double.parseDouble(arg[1]);
         }else {
-            input = fileToPath("1.txt");
+            input = fileToPath("dbu.txt");
 //            input = fileToPath("accidents.txt");
 //            input = "https://s3.us-east-2.amazonaws.com/pefim/chess.txt";
         }
@@ -30,11 +30,11 @@ public class TestPEFIM implements Serializable{
         //int minutil = 25000000;
         //min util chess
         int minutil = 10000;
-
+        int partitioning = 0;
 
         // Run the EFIM algorithm
         AlgoPEFIM algo = new AlgoPEFIM();
-        algo.runAlgorithm(tetha, input, output, true, Integer.MAX_VALUE, true);
+        algo.runAlgorithm(tetha, input, output, true, Integer.MAX_VALUE, true, partitioning);
         // Print statistics
         algo.printStats();
 //        while (true) {

@@ -1,4 +1,5 @@
-package efim;
+import efim.AlgoEFIM;
+import efim.Itemsets;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,7 +16,7 @@ public class TestEFIM {
         // the input and output file paths
         String input;
         String output = ".//output";
-        double tetha = 0.1;
+        double tetha = 0.01;
         long minutil = 366632;
         if(arg.length > 0){
             input = arg[0];
@@ -23,7 +24,7 @@ public class TestEFIM {
         }else {
 //            input = fileToPath("500.txt");
 //            input = fileToPath("accidents.txt");
-            input = fileToPath("chess.txt");
+            input = fileToPath("dbu.txt");
 
         }
 
@@ -32,7 +33,7 @@ public class TestEFIM {
 
         // Run the EFIM algorithm
         AlgoEFIM algo = new AlgoEFIM();
-        Itemsets itemsets = algo.runAlgorithm(minutil,  input, null, true, Integer.MAX_VALUE, true);
+        Itemsets itemsets = algo.runAlgorithm(tetha,  input, null, true, Integer.MAX_VALUE, true);
         // Print statistics
         algo.printStats();
 
