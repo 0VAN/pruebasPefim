@@ -1,4 +1,4 @@
-package pefim;
+package com.pefim;
 
 import java.io.IOException;
 import java.io.Serializable;

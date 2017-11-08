@@ -1,4 +1,4 @@
-/* This file is copyright (c) 2008-2012 Philippe Fournier-Viger
+package com.utils;/* This file is copyright (c) 2008-2012 Philippe Fournier-Viger
 * 
 * This file is part of the SPMF DATA MINING SOFTWARE
 * (http://www.philippe-fournier-viger.com/spmf).

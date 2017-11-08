@@ -1,4 +1,4 @@
-package pefim;
+package com.pefim;
 /*
  *  Copyright (c) 2008-2012 Philippe Fournier-Viger
  * 

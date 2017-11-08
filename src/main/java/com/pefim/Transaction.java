@@ -1,4 +1,4 @@
-package efim;
+package com.pefim;
 
  
 /* This file is copyright (c) 2008-2015 Philippe Fournier-Viger
@@ -17,17 +17,20 @@ package efim;
 * SPMF. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * This class represents a transaction
 * 
  * @author Philippe Fournier-Viger
  */
-public class Transaction {
+public class Transaction implements Serializable {
 	
 	/** a buffer to store items of an itemset*/
 	public static int[] tempItems = new int[2000];
 	/** a buffer to store utilities of an itemset */
-	public static int[] tempUtilities = new int[2000];
+	public static long[] tempUtilities = new long[2000];
 
 	/** an offset pointer, used by projected transactions*/
 	int offset;
@@ -35,13 +38,13 @@ public class Transaction {
 	/** an array of items representing the transaction */
     int[] items;
     /** an array of utilities associated to items of the transaction */
-    int[] utilities;
+	long[] utilities;
     
     /** the transaction utility of the transaction or projected transaction */
-     int transactionUtility; 
+	long transactionUtility;
      
      /** the profit of a given prefix in this transaction (initially 0 if a transaction is not projected)*/
-     int prefixUtility;
+	 long prefixUtility;
 
      /**
       * Constructor of a transaction
@@ -49,7 +52,7 @@ public class Transaction {
       * @param utilities the utilities of item in this transaction
       * @param transactionUtility the transaction utility
       */
-    public Transaction(int[] items, int[] utilities, int transactionUtility) {
+    public Transaction(int[] items, long[] utilities, long transactionUtility) {
     	this.items = items;
     	this.utilities = utilities;
     	this.transactionUtility = transactionUtility;
@@ -70,7 +73,7 @@ public class Transaction {
     	this.utilities = transaction.getUtilities();
     	
     	// copy the utility of element e
-    	int utilityE = this.utilities[offsetE];
+    	long utilityE = this.utilities[offsetE];
     	
     	// add the  utility of item e to the utility of the whole prefix used to project the transaction
     	this.prefixUtility = transaction.prefixUtility + utilityE;
@@ -117,7 +120,7 @@ public class Transaction {
      * Get the array of utilities in this transaction
      * @return array of utilities
      */
-    public int[] getUtilities() {
+    public long[] getUtilities() {
         return utilities;
     }
 
@@ -139,15 +142,15 @@ public class Transaction {
     	// In this method, we used buffers for temporary storing items and their utilities
 		// (tempItems and tempUtilities)
 		// This is for memory optimization.
-		
+
     	// for each item
     	int i = 0;
     	for(int j=0; j< items.length;j++) {
     		int item = items[j];
-    		
+
     		// Convert from old name to new name
     		int newName = oldNamesToNewNames[item];
-    		
+
     		// if the item is promising (it has a new name)
     		if(newName != 0) {
     			// copy the item and its utility
@@ -162,13 +165,53 @@ public class Transaction {
     	// copy the buffer of items back into the original array
     	this.items = new int[i];
     	System.arraycopy(tempItems, 0, this.items, 0, i);
-    	
+
     	// copy the buffer of utilities back into the original array
-    	this.utilities = new int[i];
+    	this.utilities = new long[i];
     	System.arraycopy(tempUtilities, 0, this.utilities, 0, i);
-    	
+
     	// Sort by increasing TWU values
     	insertionSort(this.items, this.utilities);
+	}
+
+	public void removeUnpromisingItems2(List<Integer> oldNamesToNewNames, int[] oldNamesToNewNames2) {
+		// In this method, we used buffers for temporary storing items and their utilities
+		// (tempItems and tempUtilities)
+		// This is for memory optimization.
+
+		// for each item
+		int i = 0;
+		for(int j=0; j< items.length;j++) {
+			int item = items[j];
+
+			// Convert from old name to new name
+			int newName = oldNamesToNewNames.get(item);
+			if (oldNamesToNewNames.get(item) != oldNamesToNewNames2[item])
+			{
+				System.out.println("Dif. item: " + item);
+			}
+
+			// if the item is promising (it has a new name)
+			if(newName != 0) {
+				// copy the item and its utility
+				tempItems[i] = newName;
+				tempUtilities[i] = utilities[j];
+				i++;
+			}else{
+				// else subtract the utility of the item
+				transactionUtility -= utilities[j];
+			}
+		}
+		// copy the buffer of items back into the original array
+		this.items = new int[i];
+		System.arraycopy(tempItems, 0, this.items, 0, i);
+
+		// copy the buffer of utilities back into the original array
+		this.utilities = new long[i];
+		System.arraycopy(tempUtilities, 0, this.utilities, 0, i);
+
+		// Sort by increasing TWU values
+		insertionSort(this.items, this.utilities);
 	}
 	
 	/**
@@ -176,10 +219,10 @@ public class Transaction {
 	 * This has an average performance of O(n log n)
 	 * @param items array of integers
 	 */
-	public static void insertionSort(int [] items,  int[] utitilies){
+	public static void insertionSort(int [] items,  long[] utitilies){
 		for(int j=1; j< items.length; j++){
 			int itemJ = items[j];
-			int utilityJ = utitilies[j];
+			long utilityJ = utitilies[j];
 			int i = j - 1;
 			for(; i>=0 && (items[i]  > itemJ); i--){
 				items[i+1] = items[i];

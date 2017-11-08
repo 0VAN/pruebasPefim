@@ -1,4 +1,4 @@
-package efim;
+package com.pefim;
 
 /* This file is copyright (c) 2008-2012 Philippe Fournier-Viger
 * 
@@ -17,6 +17,7 @@ package efim;
 */
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.List;
 * 
  * @author Philippe Fournier-Viger
  */
-public class Itemsets{
+public class Itemsets implements Serializable{
 	/** We store the itemsets in a list named "levels".
 	 Position i in "levels" contains the list of itemsets of size i */
 	private final List<List<Itemset>> levels = new ArrayList<List<Itemset>>();

@@ -1,4 +1,4 @@
-package efim;
+package com.efim;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,7 +30,7 @@ import java.util.List;
 public class Dataset {
 
 	/** the list of transactions in this dataset */
-	List<Transaction> transactions;
+    public List<Transaction> transactions;
 
 	/** the largest item name */
 	private int maxItem = 0;

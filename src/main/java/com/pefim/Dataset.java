@@ -1,6 +1,5 @@
-package pefim;
+package com.pefim;
 
-import pefim.SparkConnection;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 

@@ -1,4 +1,4 @@
-package pefim;
+package com.pefim;
 
 
 import org.apache.spark.TaskContext;
@@ -129,7 +129,7 @@ public class AlgoPEFIM implements Serializable {
     private LongAccumulator aTransactionReadingCount;
     private LongAccumulator aMergeCount;
     private LongAccumulator aCandidateCount;
-    private CollectionAccumulator<Output> aHighUtilityItemsets;
+    private CollectionAccumulator<Object> aHighUtilityItemsets;
     private List<Output> results;
 
     /** Broadcasts */
@@ -150,17 +150,7 @@ public class AlgoPEFIM implements Serializable {
 
     }
 
-    /**
-     * Run the algorithm
-     * @param minUtil  the minimum utility threshold (a positive integer)
-     * @param inputPath  the input file path
-     * @param outputPath  the output file path to save the result or null if to be kept in memory
-     * @param activateTransactionMerging
-     * @param activateSubtreeUtilityPruning
-     * @param maximumTransactionCount
-     * @return the itemsets or null if the user choose to save to file
-     * @throws IOException if exception while reading/writing to file
-     */
+
     public void runAlgorithm(double tetha, String inputPath, String outputPath, boolean activateTransactionMerging, int maximumTransactionCount, boolean activateSubtreeUtilityPruning, int partitioning) throws IOException {
 
 
@@ -534,14 +524,7 @@ public class AlgoPEFIM implements Serializable {
         }
     }
 
-    /**
-     * Recursive method to find all high-utility itemsets
-     * @param the list of transactions containing the current prefix P
-     * @param itemsToKeep the list of secondary items in the p-projected database
-     * @param itemsToExplore the list of primary items in the p-projected database
-     * @param the current prefixLength
-     * @throws IOException if error writing to output file
-     */
+
     private void backtrackingEFIM(List<Transaction> transactionsOfPN,
                                   List<Integer> itemsToKeepN, List<Integer> itemsToExploreN, int prefixLengthN) throws IOException {
 
@@ -1657,13 +1640,7 @@ public class AlgoPEFIM implements Serializable {
         }
     }
 
-    /**
-     * Utilize the utility-bin arrays to calculate the sub-tree utility and local utility of all
-     * items that can extend itemset P U {e}
-     * @param transactions the projected database for P U {e}
-     * @param j the position of j in the list of promising items
-     * @param itemsToKeep the list of promising items
-     */
+
     private void useUtilityBinArraysToCalculateUpperBounds(List<Transaction> transactionsPe,
                                                            int j, List<Integer> itemsToKeep, int[] ubaSU, int[] ubaLU) {
 
@@ -1804,12 +1781,6 @@ public class AlgoPEFIM implements Serializable {
     }
 
 
-
-    /**
-     * Save a high-utility itemset to file or memory depending on what the user chose.
-     * @param itemset the itemset
-     * @throws IOException if error while writting to output file
-     */
     private void output(int tempPosition, int utility, int[] copy) throws IOException {
         patternCount++;
 

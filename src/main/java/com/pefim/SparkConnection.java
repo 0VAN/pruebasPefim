@@ -1,4 +1,4 @@
-package pefim;
+package com.pefim;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
