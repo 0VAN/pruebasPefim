@@ -53,33 +53,33 @@ public class Main {
                     transactionDatasetUtilityGenerator.convert(baos,file,cfg.maximumQuantity,cfg.multiplicativeFactor);
 
                     efim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c + ",com.efim," + efim.returnStats()).split(","));
+                    output.add((c + "efim," + efim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 0);
-                    output.add((c + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 1);
-                    output.add((c + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 2);
-                    output.add((c++ + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
 
                     efim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c + ",com.efim," + efim.returnStats()).split(","));
+                    output.add((c + "efim," + efim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true, 0);
-                    output.add((c + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true, 1);
-                    output.add((c + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true, 2);
-                    output.add((c++ + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
 
                     efim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c + ",com.efim," + efim.returnStats()).split(","));
+                    output.add((c + "efim," + efim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true, 0);
-                    output.add((c + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true, 1);
-                    output.add((c + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true, 2);
-                    output.add((c++ + ",com.pefim," + pefim.returnStats()).split(","));
+                    output.add((c + "pefim," + pefim.returnStats()).split(","));
 
-
+                    c++;
                 }
                 writer.writeAll(output);
                 output.clear();
