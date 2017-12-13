@@ -26,7 +26,8 @@ public class SparkConnection {
             //Setup Spark configuration
             SparkConf conf = new SparkConf()
                     .setAppName(appName)
-                    .setMaster(sparkMaster);
+                    .setMaster(sparkMaster)
+                    ;
 
             //Make sure you download the winutils binaries into this directory
             //from https://github.com/srccodes/hadoop-common-2.2.0-bin/archive/master.zip
@@ -39,7 +40,7 @@ public class SparkConnection {
             sparkSession = SparkSession
                     .builder()
                     .appName(appName)
-//                    .config("spark.executor.memory", "3g")
+                    .config("spark.driver.maxResultSize", "0")
 //                    .config("spark.driver.memory", "3g")
 //                    .config("spark.broadcast.blockSize", "1500m")
                     //.config("spark.executor.heartbeatInterval", "2min")

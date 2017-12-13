@@ -17,7 +17,7 @@ import java.util.List;
 
 
 public class Main {
-    public static void main(String args[]){
+    public static void main(String args[]) {
         String CSVinputfile = args[0];
         File outputDirectory = new File(args[1]);
         TransactionDatabaseGenerator transactionDatabaseGenerator = new TransactionDatabaseGenerator();
@@ -30,54 +30,55 @@ public class Main {
                 System.out.println("creating directory: " + outputDirectory.getName());
                 boolean result = false;
 
-                try{
+                try {
                     outputDirectory.mkdir();
                     result = true;
-                } catch(SecurityException se){
+                } catch (SecurityException se) {
                     //handle it
                 }
-                if(result) {
+                if (result) {
                     System.out.println("DIR created");
                 }
             }
             List<DataSetScenarioConfig> beans = new CsvToBeanBuilder(new FileReader(CSVinputfile))
                     .withType(DataSetScenarioConfig.class).withIgnoreLeadingWhiteSpace(true).build().parse();
             CSVWriter writer = new CSVWriter(new FileWriter("resultados.csv"), ',');
-            String file=args[1]+"/db.txt";
+            String file = args[1] + "/db.txt";
 
             List<String[]> output = new ArrayList<String[]>();
-            for(int i = 0; i < 1 ; i++){
+            for (int i = 0; i < 1; i++) {
                 int c = 1;
-                for(DataSetScenarioConfig cfg:beans){
-                    ByteArrayOutputStream baos = transactionDatabaseGenerator.generateDatabase(cfg.numberOfTransactions,cfg.maxDistincItems,cfg.maxItemCountPerTransaction);
-                    transactionDatasetUtilityGenerator.convert(baos,file,cfg.maximumQuantity,cfg.multiplicativeFactor);
+                System.out.println("Iteration number:" + (i + 1));
+                for (DataSetScenarioConfig cfg : beans) {
+                    ByteArrayOutputStream baos = transactionDatabaseGenerator.generateDatabase(cfg.numberOfTransactions, cfg.maxDistincItems, cfg.maxItemCountPerTransaction);
+                    transactionDatasetUtilityGenerator.convert(baos, file, cfg.maximumQuantity, cfg.multiplicativeFactor);
 
                     efim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c + "efim," + efim.returnStats()).split(","));
+                    output.add((c + ",efim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + efim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 0);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 1);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta1, file, null, true, Integer.MAX_VALUE, true, 2);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
 
                     efim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c + "efim," + efim.returnStats()).split(","));
+                    output.add((c + ",efim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + efim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true, 0);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true, 1);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta2, file, null, true, Integer.MAX_VALUE, true, 2);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
 
                     efim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true);
-                    output.add((c + "efim," + efim.returnStats()).split(","));
+                    output.add((c + ",efim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + efim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true, 0);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true, 1);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
                     pefim.runAlgorithm(cfg.theta3, file, null, true, Integer.MAX_VALUE, true, 2);
-                    output.add((c + "pefim," + pefim.returnStats()).split(","));
+                    output.add((c + ",pefim," + cfg.numberOfTransactions + "," + cfg.maxDistincItems + "," + cfg.maxItemCountPerTransaction + "," + pefim.returnStats()).split(","));
 
                     c++;
                 }

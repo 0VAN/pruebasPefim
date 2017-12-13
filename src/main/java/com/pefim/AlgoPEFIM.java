@@ -1869,7 +1869,6 @@ public class AlgoPEFIM implements Serializable {
         resultado += tetha + ",";
         resultado += minUtil + ",";
         resultado += patternCount + ",";
-        resultado += minUtil + ",";
         resultado += totalTime + ",";
         resultado += memory + ",";
         resultado += candidateCount + ",";
